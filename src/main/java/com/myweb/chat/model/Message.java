@@ -1,5 +1,6 @@
 package com.myweb.chat.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.time.Instant;
 
@@ -25,11 +26,13 @@ public class Message {
     // Người gửi (User)
     @ManyToOne
     @JoinColumn(name = "sender_id", nullable = false)
+    @JsonIgnore
     private User sender;
 
     // Thuộc phòng nào (ChatRoom)
     @ManyToOne
     @JoinColumn(name = "room_id", nullable = false)
+    @JsonIgnore
     private ChatRoom room;
 
     // ===== Getter & Setter =====

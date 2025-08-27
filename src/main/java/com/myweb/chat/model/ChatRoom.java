@@ -1,5 +1,6 @@
 package com.myweb.chat.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.util.Set;
 
@@ -18,10 +19,12 @@ public class ChatRoom {
 
     // ManyToMany với User
     @ManyToMany(mappedBy = "rooms")
+    @JsonIgnore
     private Set<User> users;
 
     // OneToMany với Message
     @OneToMany(mappedBy = "room")
+    @JsonIgnore
     private Set<Message> messages;
 
     // ===== Getter & Setter =====

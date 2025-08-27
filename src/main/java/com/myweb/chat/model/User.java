@@ -1,5 +1,6 @@
 package com.myweb.chat.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.util.Set;
 
@@ -34,10 +35,12 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "room_id")
     )
+    @JsonIgnore
     private Set<ChatRoom> rooms;
 
     // OneToMany với Message
     @OneToMany(mappedBy = "sender")
+    @JsonIgnore
     private Set<Message> messages;
 
     // ===== Getter & Setter =====
