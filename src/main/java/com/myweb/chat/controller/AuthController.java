@@ -7,6 +7,7 @@ import com.myweb.chat.model.User;
 import com.myweb.chat.security.JwtUtil;
 import com.myweb.chat.service.AuthService;
 import org.springframework.web.bind.annotation.*;
+import jakarta.validation.Valid;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -33,7 +34,7 @@ public class AuthController {
             @ApiResponse(responseCode = "400", description = "Tên đăng nhập đã tồn tại")
     })
     @PostMapping("/signup")
-    public String signup(@RequestBody RegisterRequest req) {
+    public String signup(@Valid @RequestBody RegisterRequest req) {
         authService.register(req, false);
         return "Đăng ký người dùng thành công";
     }
@@ -45,7 +46,7 @@ public class AuthController {
             @ApiResponse(responseCode = "400", description = "Tên đăng nhập đã tồn tại")
     })
     @PostMapping("/signup/admin")
-    public String signupAdmin(@RequestBody RegisterRequest req) {
+    public String signupAdmin(@Valid @RequestBody RegisterRequest req) {
         authService.register(req, true);
         return "Đăng ký quản trị viên thành công";
     }
@@ -58,7 +59,7 @@ public class AuthController {
             @ApiResponse(responseCode = "404", description = "Người dùng không tồn tại")
     })
     @PostMapping("/login")
-    public AuthResponse login(@RequestBody LoginRequest req) {
+    public AuthResponse login(@Valid @RequestBody LoginRequest req) {
         User u = authService.login(req.getUsername(), req.getPassword());
 
         Set<String> roles = u.getRoles().stream().map(Enum::name).collect(Collectors.toSet());
